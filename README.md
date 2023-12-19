@@ -1,7 +1,7 @@
 
 <p align="center">
   <img width="700" src="https://github.com/stac-utils/titiler-pgstac/assets/10407788/7623471f-9391-4822-8799-b552775444fa"/>
-  <p align="center">STAC Collections/Items for MAXAR OpenData.</p>
+  <p align="center">STAC Collections/Items for MAXAR/Umbra/Linz OpenData.</p>
 </p>
 
 ---
@@ -16,17 +16,15 @@ python -m pip install pip -U
 python -m pip install pystac
 
 # Create STAC collections and items (~30 min)
-python generate.py
-
-# Merge all items in one LD-JSON file
-cat MAXAR_* > items.json
+cd Maxar
+python -m generate --collections collections.json --items items.json --with-assets-extension --with-s3-urls
 ```
 
 ### Ingest in pgSTAC
 
 ```bash
 # Install requirement
-python -m pip install pypgstac==0.7.9 psycopg[pool]
+python -m pip install pypgstac psycopg[pool]
 
 # Launch pgstac database
 docker-compose up -d database
