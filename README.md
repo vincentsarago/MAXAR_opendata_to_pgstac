@@ -13,7 +13,7 @@ The goal is to crawl the static collections/items and fetch save in order to ing
 ```bash
 # Install dependencies
 python -m pip install pip -U
-python -m pip install pystac
+python -m pip install pystac httpx click
 
 # Create STAC collections and items (~30 min)
 cd Maxar
