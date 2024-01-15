@@ -1,7 +1,7 @@
 
 <p align="center">
   <img width="700" src="https://github.com/stac-utils/titiler-pgstac/assets/10407788/7623471f-9391-4822-8799-b552775444fa"/>
-  <p align="center">STAC Collections/Items for MAXAR/Umbra/Linz OpenData.</p>
+  <p align="center">STAC Collections/Items for MAXAR / Umbra / Linz OpenData.</p>
 </p>
 
 ---
