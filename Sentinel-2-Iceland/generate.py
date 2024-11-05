@@ -11,7 +11,8 @@ COLLECTION_BBOX = [-24.95, 63.38, -13.99, 66.56]
 @click.command()
 @click.option("--collections", "collections_path", type=str, default="collections.json")
 @click.option("--items", "items_path", type=str, default="items.json")
-def main(collections_path, items_path):
+@click.option('--with-s3-urls/--without-s3-url', type=bool, default=False)
+def main(collections_path, items_path, with_s3_urls):
     click.echo("Connecting to static catalog...")
     try:
         catalog = pystac.Catalog.from_file("https://earth-search.aws.element84.com/v1/")
@@ -73,6 +74,15 @@ def main(collections_path, items_path):
                 if "assets" in item_dict:
                     filtered_assets = {k: v for k, v in item_dict["assets"].items() if 'jp2' not in v["href"]}
                     item_dict["assets"] = filtered_assets
+
+                # Replace HTTP URLs with S3 URLs
+                if with_s3_urls:
+                    for asset in item_dict["assets"].values():
+                        asset["href"] = asset["href"].replace("https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs", "s3://sentinel-cogs/sentinel-s2-l2a-cogs")
+
+                 # Remove additional metadata
+                item_dict["properties"] = {k: v for k, v in item_dict["properties"].items() if not k.startswith("s2:")}
+                item_dict["properties"] = {k: v for k, v in item_dict["properties"].items() if not k.startswith("earthsearch:")}
 
                 f_itm.write(json.dumps(item_dict) + "\n")
 
