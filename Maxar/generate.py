@@ -80,6 +80,5 @@ def main(collections_path, items_path, with_s3_urls, with_assets_extension):
 
 
 
-
 if __name__ == '__main__':
     main()
